@@ -3,6 +3,11 @@
 {% block head %}
     <title>Főoldal</title>
 {% endblock %}
-
 {% block body %}
+<h1>akarmi</h1>
+    {% for item in items %}
+        <p>Rating : {{item.rating}}</p>
+        <p>Counter : {{item.counter}}</p>
+        <br/>
+    {% endfor %}
 {% endblock %}
