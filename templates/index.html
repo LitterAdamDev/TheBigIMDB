@@ -1,15 +1,33 @@
 {% extends 'base.html' %}
 
 {% block head %}
-    <title>Főoldal</title>
+    <title>The Big IMDB quest</title>
 {% endblock %}
 {% block body %}
-    {% for item in items %}
-        <p>Title : {{item._title}}</p>
-        <p>Place : {{item._place}}</p>
-        <p>Rating : {{item._rating_value}}</p>
-        <p>Counter : {{item._rating_counter}}</p>
-        <p>Oscars : {{item._oscars}}</p>
-        <br/>
-    {% endfor %}
+<div class="table-wrapper">
+    <table class="table table-dark table-sm">
+        <thead>
+            <tr>
+                <th scope="col">Place</th>
+                <th scope="col">Title</th>
+                <th scope="col">Rating [adjusted]</th>
+                <th scope="col">Rating [original]</th>
+                <th scope="col">Oscar Calculator</th>
+                <th scope="col">Review Penalizer</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+            <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{item._title}}</td>
+                <td>{{item._rating_value}}</td>
+                <td>{{item._original_rating_value}}</td>
+                <td>+{{item._bonus_value}}</td>
+                <td>-{{item._minus_value}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

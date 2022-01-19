@@ -1,0 +1,31 @@
+body {
+  text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
+  box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
+}
+.table-wrapper {
+    overflow:hidden;
+    overflow-y: scroll;
+    height: 50vh;
+    min-height: 30vh;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+.table-wrapper::-webkit-scrollbar {
+    width: .35em;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+}
+table{
+    border-collapse: separate;
+}
+thead{
+    position: sticky;
+    top: 0;
+}

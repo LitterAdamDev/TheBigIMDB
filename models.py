@@ -6,9 +6,12 @@ class Movie():
     def __init__(self, place, rating_value, rating_counter, oscars, title):
         self._place = place
         self._rating_value = rating_value
+        self._original_rating_value = rating_value
         self._rating_counter = rating_counter
         self._oscars = oscars
         self._title = title
+        self._bonus_value = 0
+        self._minus_value = 0
 
 
 class MovieManager():
@@ -48,7 +51,7 @@ class MovieManager():
             self._list.append(
                 Movie(
                     place=container.find('span',{'name' : 'rk'}).attrs['data-value'],
-                    rating_value=float(container.find('span',{'name' : 'ir'}).attrs['data-value']),
+                    rating_value=round(float(container.find('span',{'name' : 'ir'}).attrs['data-value']),1),
                     rating_counter= int(rating_counter),
                     oscars=oscars,
                     title=container.find('td',{'class' : 'titleColumn'}).a.text
@@ -58,7 +61,9 @@ class MovieManager():
     def review_penalizer(self):
         for movie in self._list:
             if movie._rating_counter < self._highest_counter:
+                movie._minus_value = round(floor((self._highest_counter - movie._rating_counter)/100000) * 0.1,1)
                 movie._rating_value = movie._rating_value - floor((self._highest_counter - movie._rating_counter)/100000) * 0.1
+
     
     def oscar_calculator(self):
         for movie in self._list:
@@ -72,5 +77,6 @@ class MovieManager():
                 points = 0.5 
             elif movie._oscars > 0:
                 points = 0.3
-              
+            
+            movie._bonus_value = points
             movie._rating_value = movie._rating_value + points
