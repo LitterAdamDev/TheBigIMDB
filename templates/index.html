@@ -4,10 +4,12 @@
     <title>Főoldal</title>
 {% endblock %}
 {% block body %}
-<h1>akarmi</h1>
     {% for item in items %}
-        <p>Rating : {{item.rating}}</p>
-        <p>Counter : {{item.counter}}</p>
+        <p>Title : {{item._title}}</p>
+        <p>Place : {{item._place}}</p>
+        <p>Rating : {{item._rating_value}}</p>
+        <p>Counter : {{item._rating_counter}}</p>
+        <p>Oscars : {{item._oscars}}</p>
         <br/>
     {% endfor %}
 {% endblock %}
