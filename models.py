@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup as soup
 from urllib.request import urlopen
 from math import floor
 import csv
+import os
 
 class Movie():
     def __init__(self, place, rating_value, rating_counter, oscars, title):
@@ -86,6 +87,7 @@ class MovieManager():
             
     def generate_csv(self):
         list_to_return = self.get_list()
+        os.makedirs("outputs/", exist_ok=True)
         with open("outputs/ratings.csv", "w", newline="") as csvfile:
             csv_writer = csv.writer(csvfile, delimiter=",")
             csv_writer.writerow(["Place","Title","Rating [adjusted]","Rating [original]","Oscar Calculator","Review Penalizer"])
