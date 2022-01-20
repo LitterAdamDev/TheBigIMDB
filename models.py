@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup as soup
 from urllib.request import urlopen
 from math import floor
+import csv
 
 class Movie():
     def __init__(self, place, rating_value, rating_counter, oscars, title):
@@ -21,15 +22,17 @@ class MovieManager():
         self._highest_counter = 0
         
     def get_list(self):
+        self._list.sort(key=lambda x: x._rating_value, reverse=True)
         return self._list
         
     def preprocess(self):
+        self._list = []
         client = urlopen(self._url)
         page_soup = soup(client.read(), 'lxml')
         client.close()
         
         main_container = page_soup.find('tbody',{'class' : 'lister-list'})
-        sub_containers = main_container.find_all('tr',limit=5)
+        sub_containers = main_container.find_all('tr',limit=20)
         for container in sub_containers:
             
             oscars = 0
@@ -79,4 +82,13 @@ class MovieManager():
                 points = 0.3
             
             movie._bonus_value = points
-            movie._rating_value = movie._rating_value + points
+            movie._rating_value = round(max(min(movie._rating_value + points,10),0),1)
+            
+    def generate_csv(self):
+        list_to_return = self.get_list()
+        with open('outputs/ratings.csv', 'w', newline='') as csvfile:
+            csv_writer = csv.writer(csvfile, delimiter=',')
+            csv_writer.writerow(['Place','Title','Rating [adjusted]','Rating [original]','Oscar Calculator','Review Penalizer'])
+            for idx, movie in enumerate(list_to_return,start=1):
+                csv_writer.writerow([idx, movie._title, movie._rating_value, movie._original_rating_value, '+'+str(movie._bonus_value), '-'+str(movie._minus_value)])
+            

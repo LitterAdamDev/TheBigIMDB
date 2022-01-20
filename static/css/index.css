@@ -29,3 +29,6 @@ thead{
     position: sticky;
     top: 0;
 }
+.form-wrapper{
+    padding-top: 3vh;
+}
