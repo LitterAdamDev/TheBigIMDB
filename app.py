@@ -1,6 +1,5 @@
-from flask import Flask, jsonify, render_template, send_file, session
+from flask import Flask, render_template, send_file, session
 from models import MovieManager
-from time import time
 from datetime import timedelta
 
 app = Flask(__name__)
