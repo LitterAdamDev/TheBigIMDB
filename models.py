@@ -48,7 +48,7 @@ class MovieManager():
             
             rating_counter = container.find("span",{"name" : "nv"}).attrs["data-value"]
             
-            if int(rating_counter) > (self._highest_counter):
+            if int(rating_counter) > int(self._highest_counter):
                 self._highest_counter = int(rating_counter)
             
             self._list.append(
