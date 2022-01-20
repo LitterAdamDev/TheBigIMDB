@@ -28,36 +28,36 @@ class MovieManager():
     def preprocess(self):
         self._list = []
         client = urlopen(self._url)
-        page_soup = soup(client.read(), 'lxml')
+        page_soup = soup(client.read(), "lxml")
         client.close()
         
-        main_container = page_soup.find('tbody',{'class' : 'lister-list'})
-        sub_containers = main_container.find_all('tr',limit=20)
+        main_container = page_soup.find("tbody",{"class" : "lister-list"})
+        sub_containers = main_container.find_all("tr",limit=20)
         for container in sub_containers:
             
             oscars = 0
-            href = container.find('a').attrs['href']
-            sub_client = urlopen(''.join(['https://www.imdb.com/',href]))
-            sub_page_soup = soup(sub_client.read(), 'lxml')
+            href = container.find("a").attrs["href"]
+            sub_client = urlopen("".join(["https://www.imdb.com/",href]))
+            sub_page_soup = soup(sub_client.read(), "lxml")
             sub_client.close()
             
-            section = sub_page_soup.find('div',{'class' : 'Awards__Wrapper-sc-152rtbv-0 davyDx base'})
-            text = section.find('a',{'class' : 'ipc-metadata-list-item__label ipc-metadata-list-item__label--link'}).text.split()
-            if text[0] == 'Won':
+            section = sub_page_soup.find("div",{"class" : "Awards__Wrapper-sc-152rtbv-0 davyDx base"})
+            text = section.find("a",{"class" : "ipc-metadata-list-item__label ipc-metadata-list-item__label--link"}).text.split()
+            if text[0] == "Won":
                 oscars = int(text[1])
             
-            rating_counter = container.find('span',{'name' : 'nv'}).attrs['data-value']
+            rating_counter = container.find("span",{"name" : "nv"}).attrs["data-value"]
             
             if int(rating_counter) > (self._highest_counter):
                 self._highest_counter = int(rating_counter)
             
             self._list.append(
                 Movie(
-                    place=container.find('span',{'name' : 'rk'}).attrs['data-value'],
-                    rating_value=round(float(container.find('span',{'name' : 'ir'}).attrs['data-value']),1),
+                    place=container.find("span",{"name" : "rk"}).attrs["data-value"],
+                    rating_value=round(float(container.find("span",{"name" : "ir"}).attrs["data-value"]),1),
                     rating_counter= int(rating_counter),
                     oscars=oscars,
-                    title=container.find('td',{'class' : 'titleColumn'}).a.text
+                    title=container.find("td",{"class" : "titleColumn"}).a.text
                 )
             )
     
@@ -86,9 +86,9 @@ class MovieManager():
             
     def generate_csv(self):
         list_to_return = self.get_list()
-        with open('outputs/ratings.csv', 'w', newline='') as csvfile:
-            csv_writer = csv.writer(csvfile, delimiter=',')
-            csv_writer.writerow(['Place','Title','Rating [adjusted]','Rating [original]','Oscar Calculator','Review Penalizer'])
+        with open("outputs/ratings.csv", "w", newline="") as csvfile:
+            csv_writer = csv.writer(csvfile, delimiter=",")
+            csv_writer.writerow(["Place","Title","Rating [adjusted]","Rating [original]","Oscar Calculator","Review Penalizer"])
             for idx, movie in enumerate(list_to_return,start=1):
-                csv_writer.writerow([idx, movie._title, movie._rating_value, movie._original_rating_value, '+'+str(movie._bonus_value), '-'+str(movie._minus_value)])
+                csv_writer.writerow([idx, movie._title, movie._rating_value, movie._original_rating_value, "+"+str(movie._bonus_value), "-"+str(movie._minus_value)])
             
