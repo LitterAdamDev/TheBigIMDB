@@ -8,8 +8,8 @@ class FlaskTestCase(unittest.TestCase):
         self.ctx.push()
         self.client = app.test_client()
         self.manager = MovieManager("https://www.imdb.com/chart/top/")
-        self.manager._list = [Movie(1,5.0,1000000,5,'First Movie'),Movie(2,6.0,100000,0,'Second Movie'),Movie(3,9.9,2000000,8,'Third Movie')]
-        self.manager._highest_counter = 2000000
+        self.manager.list = [Movie(1,5.0,1000000,5,'First Movie'),Movie(2,6.0,100000,0,'Second Movie'),Movie(3,9.9,2000000,8,'Third Movie')]
+        self.manager.highest_counter = 2000000
     
     def tearDown(self):
         self.ctx.pop()
@@ -29,13 +29,13 @@ class FlaskTestCase(unittest.TestCase):
         self.manager.review_penalizer()
         result = self.manager.get_list()
         self.assertEqual(len(result),3)
-        self.assertEqual([result[0]._rating_value,result[1]._rating_value,result[2]._rating_value],[9.9,4.1,4.0])
+        self.assertEqual([result[0].rating_value,result[1].rating_value,result[2].rating_value],[9.9,4.1,4.0])
     
     def test_oscar_calculator(self):
         self.manager.oscar_calculator()
         result = self.manager.get_list()
         self.assertEqual(len(result),3)
-        self.assertEqual([result[0]._rating_value,result[1]._rating_value,result[2]._rating_value],[10,6.0,5.5])
+        self.assertEqual([result[0].rating_value,result[1].rating_value,result[2].rating_value],[10,6.0,5.5])
 
 if __name__ == "__main__":
     unittest.main()
