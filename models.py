@@ -31,7 +31,7 @@ class MovieManager():
         client.close()
         
         main_container = page_soup.find("tbody",{"class" : "lister-list"})
-        sub_containers = main_container.find_all("tr",limit=2)
+        sub_containers = main_container.find_all("tr",limit=20)
         for container in sub_containers:
             
             oscars = 0
