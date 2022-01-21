@@ -20,11 +20,11 @@
         {% for item in items %}
             <tr>
                 <th scope="row">{{loop.index}}</th>
-                <td>{{item._title}}</td>
-                <td>{{item._rating_value}}</td>
-                <td>{{item._original_rating_value}}</td>
-                <td>+{{item._bonus_value}}</td>
-                <td>-{{item._minus_value}}</td>
+                <td>{{item.title}}</td>
+                <td>{{item.rating_value}}</td>
+                <td>{{item.original_rating_value}}</td>
+                <td>+{{item.bonus_value}}</td>
+                <td>-{{item.minus_value}}</td>
             </tr>
         {% endfor %}
         </tbody>
