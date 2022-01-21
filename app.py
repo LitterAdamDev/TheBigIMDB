@@ -6,10 +6,9 @@ import csv
 app = Flask(__name__)
 app.secret_key = "dzfJyr6ZcyGjRA7DozpPGEQjGcvDrL4P"
 
-manager = MovieManager("https://www.imdb.com/chart/top/")
+manager = MovieManager("https://www.imdb.com/chart/top/",20)
 
-
-@app.route("/",methods=["GET","POST"])
+@app.route("/",methods=["GET"])
 def index():    
     manager.preprocess()
     manager.review_penalizer()
@@ -24,7 +23,7 @@ def download():
         csv_writer.writerow(["Place", "Title", "Rating [adjusted]", "Rating [original]", "Oscar Calculator", "Review Penalizer"])
         list_to_return = manager.get_list()
         for idx, movie in enumerate(list_to_return,start=1):
-            csv_writer.writerow([idx, movie["title"], movie["rating_value"], movie["original_rating_value"], "+"+str(movie["bonus_value"]), "-"+str(movie["minus_value"])])
+            csv_writer.writerow([idx, movie.title, movie.rating_value, movie.original_rating_value, "+"+str(movie.bonus_value), "-"+str(movie.minus_value)])
     
     return send_file(
         "outputs/ratings.csv",
