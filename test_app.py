@@ -7,7 +7,7 @@ class FlaskTestCase(unittest.TestCase):
         self.ctx = app.app_context()
         self.ctx.push()
         self.client = app.test_client()
-        self.manager = MovieManager("https://www.imdb.com/chart/top/")
+        self.manager = MovieManager("https://www.imdb.com/chart/top/",20)
         self.manager.list = [Movie(1,5.0,1000000,5,'First Movie'),Movie(2,6.0,100000,0,'Second Movie'),Movie(3,9.9,2000000,8,'Third Movie')]
         self.manager.highest_counter = 2000000
     

@@ -24,7 +24,7 @@ def download():
         list_to_return = manager.get_list()
         for idx, movie in enumerate(list_to_return,start=1):
             csv_writer.writerow([idx, movie.title, movie.rating_value, movie.original_rating_value, "+"+str(movie.bonus_value), "-"+str(movie.minus_value)])
-    
+        
     return send_file(
         "outputs/ratings.csv",
         mimetype="Content-Type: text/csv; charset=Shift_JIS",
