@@ -27,9 +27,15 @@ $ py -m pip install -r requirements.txt
 
 Here's how you run the flask app from the terminal:
 ```sh
-flask run
+$ flask run
 ```
 
 ### Open in a Browser
 
 Your running server will be visible at [http://127.0.0.1:5000](http://127.0.0.1:5000)
+
+## How to run unit tests
+Here's how you run the tests from the terminal:
+```sh
+$ py test_app.py
+```
