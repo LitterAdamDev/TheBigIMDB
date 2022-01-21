@@ -6,7 +6,7 @@ import csv
 
 app = Flask(__name__)
 app.secret_key = "dzfJyr6ZcyGjRA7DozpPGEQjGcvDrL4P"
-app.permanent_session_lifetime = timedelta(hours=6)
+app.permanent_session_lifetime = timedelta(minutes=1)
 
 manager = MovieManager("https://www.imdb.com/chart/top/")
 
