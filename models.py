@@ -103,6 +103,8 @@ class MovieManager():
             HTTPError: if the provided url is wrong for some reason.
         """
 
+        self.movie_storage = []
+        
         try:
             client = urlopen(self.url)
             page_soup = soup(client.read(), "lxml")
